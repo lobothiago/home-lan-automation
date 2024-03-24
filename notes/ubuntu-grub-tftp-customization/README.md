@@ -12,7 +12,7 @@ On the operating system that manages GRUB, perform the following steps:
 
 - Edit the GRUB custom script file located at `/etc/grub.d/40_custom` by adding the following lines:
 
-```
+```bash
 insmod net
 insmod efinet
 insmod tftp

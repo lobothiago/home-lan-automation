@@ -24,7 +24,7 @@ chmod -R 777 /tftp
 
 Edit the `/etc/default/tftpd-hpa` file with the following content:
 
-```plaintext
+```bash
 # /etc/default/tftpd-hpa
 
 TFTP_USERNAME="tftp"
