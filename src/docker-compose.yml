@@ -1,0 +1,7 @@
+services:
+
+  customer:
+    image: registry.gitlab.com/autolan/api:${PRJ_VERSION}
+    restart: always
+    ports:
+      - 8081:8080

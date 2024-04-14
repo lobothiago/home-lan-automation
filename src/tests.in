@@ -1,0 +1,9 @@
+-r requirements.in
+
+jinja2
+localstack-client
+pytest
+tenacity
+requests-toolbelt
+deepdiff
+pytest-html
