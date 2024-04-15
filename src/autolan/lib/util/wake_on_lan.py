@@ -1,5 +1,11 @@
+import re
 import socket
 import struct
+
+
+def is_mac_address(mac: str) -> bool:
+    pattern = r"^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$"
+    return bool(re.match(pattern, mac))
 
 
 def send_wake_on_lan(mac_address):

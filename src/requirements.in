@@ -1,2 +1,6 @@
 falcon
 gunicorn
+marshmallow
+marshmallow-dataclass
+pyyaml
+typeguard

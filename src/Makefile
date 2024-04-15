@@ -104,6 +104,7 @@ lint-python-mypy-check:
 	  && mypy \
 	    --non-interactive \
 		--install-types \
+		--check-untyped-defs \
 		--ignore-missing-imports $(PYTHON_SRCS)
 
 ## flake8 lint Python code

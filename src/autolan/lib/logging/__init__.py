@@ -3,13 +3,6 @@ import os
 import sys
 from typing import Any, List, Optional
 
-# def setup_logging():
-#     logging.basicConfig(
-#         handlers=[logging.StreamHandler(sys.stdout)],
-#         level=os.environ.get("LOG_LEVEL", "INFO"),
-#         format="%(asctime)s - %(levelname)s - %(name)s - %(message)s",
-#     )
-
 
 def setup_logging(opt: Optional[Any] = None, log_id: Optional[str] = ""):
     """Setup CLI runtime logging.
