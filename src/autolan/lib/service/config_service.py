@@ -1,5 +1,6 @@
-import json
 from typing import Any, Dict, List, Optional
+
+import yaml
 
 from autolan.lib.domain.config import AutoLANConfig, Schema
 
@@ -45,5 +46,5 @@ class ConfigService(AutoLANConfig):
 
     def load_from_path(self, settings_file_path: str) -> None:
         with open(settings_file_path, "r") as f:
-            settings_dictionary = json.load(f)
+            settings_dictionary = yaml.safe_load(f)
             self.load_from_dict(settings_dictionary)

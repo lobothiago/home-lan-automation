@@ -3,6 +3,7 @@
 import logging
 import os
 
+from autolan.bot.main import entrypoint
 from autolan.lib.cli import output_options, setup_cli
 from autolan.lib.service.config_service import ConfigService
 
@@ -16,16 +17,16 @@ def command(opt):
     settings_file_path = os.environ.get("SETTINGS_FILE_PATH")
     config_service = ConfigService(settings_file_path=settings_file_path)
 
-    log.info(f"Hello CLI! {settings_file_path}")
-    log.info(f"{config_service.slaves}")
+    log.info("Will call telegram bot entrypoint()")
+    entrypoint(config_service)
 
 
 def options(subparsers):
     """Sub-command options."""
-    parser_desc = "Dummy CLI tool."
+    parser_desc = "Telegram Bot CLI invocator."
 
     parser = subparsers.add_parser(
-        "dummy-cli",
+        "telegram-bot",
         help=parser_desc,
         description=parser_desc,
     )

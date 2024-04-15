@@ -1,5 +1,5 @@
 from dataclasses import field
-from typing import Any, Dict, List, cast
+from typing import Any, Dict, List, Optional, cast
 
 from marshmallow_dataclass import class_schema, dataclass
 
@@ -18,8 +18,15 @@ class SlaveConfig(BaseConfig):
 
 
 @dataclass
+class TelegramConfig(BaseConfig):
+
+    api_key: str
+
+
+@dataclass
 class AutoLANConfig(BaseConfig):
 
+    telegram: Optional[TelegramConfig]
     slaves: List[SlaveConfig] = field(default_factory=lambda: [])
 
     def __post_init__(self):
@@ -33,6 +40,9 @@ class AutoLANConfig(BaseConfig):
             )
 
         self.slaves = new_slaves
+
+        if isinstance(self.telegram, dict):
+            self.telegram = TelegramConfig(**cast(Dict[str, Any], self.telegram))
 
 
 Schema = class_schema(AutoLANConfig)()

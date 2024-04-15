@@ -179,9 +179,9 @@ up-dummy:
       && autolan --log_stdout dummy-cli
 
 
-docker-up-dummy:
+docker-up-telegram-bot:
 	env PRJ_VERSION='$(PRJ_VERSION)' $(DOCKER_COMPOSE) build
-	env PRJ_VERSION='$(PRJ_VERSION)' $(DOCKER_COMPOSE) up dummy
+	env PRJ_VERSION='$(PRJ_VERSION)' $(DOCKER_COMPOSE) up telegram-bot
 
 ## Stop local development stack
 down:

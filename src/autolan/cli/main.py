@@ -4,6 +4,7 @@ import argparse
 
 from autolan.__build__ import version as lib_version
 from autolan.cli.dummy_cli import options as dummy_cli_options
+from autolan.cli.telegram_bot import options as telegram_bot_cli_options
 from autolan.lib.cli import EnvDefault, log_options
 
 
@@ -46,6 +47,7 @@ def options():
     # sub-commands
     #
     dummy_cli_options(subparsers)
+    telegram_bot_cli_options(subparsers)
 
     return parser
 

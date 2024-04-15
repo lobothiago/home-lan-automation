@@ -9,3 +9,11 @@ services:
   dummy:
     image: registry.gitlab.com/autolan/lib:${PRJ_VERSION}
     command: --log_stdout dummy-cli
+
+  telegram-bot:
+    image: registry.gitlab.com/autolan/lib:${PRJ_VERSION}
+    command: --log_stdout telegram-bot
+    environment:
+      - SETTINGS_FILE_PATH=/settings.yml
+    volumes:
+      - ${SETTINGS_FILE_PATH}:/settings.yml:ro

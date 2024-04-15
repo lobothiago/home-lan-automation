@@ -4,6 +4,8 @@
 #
 #    pip-compile --index-url=https://pypi.org/simple tests.in
 #
+anyio==4.3.0
+    # via httpx
 boto3==1.34.69
     # via localstack-client
 botocore==1.34.69
@@ -11,19 +13,33 @@ botocore==1.34.69
     #   boto3
     #   s3transfer
 certifi==2024.2.2
-    # via requests
+    # via
+    #   httpcore
+    #   httpx
+    #   requests
 charset-normalizer==3.3.2
     # via requests
 deepdiff==6.7.1
     # via -r tests.in
 exceptiongroup==1.2.0
-    # via pytest
+    # via
+    #   anyio
+    #   pytest
 falcon==3.1.3
     # via -r requirements.in
 gunicorn==21.2.0
     # via -r requirements.in
+h11==0.14.0
+    # via httpcore
+httpcore==1.0.5
+    # via httpx
+httpx==0.27.0
+    # via python-telegram-bot
 idna==3.6
-    # via requests
+    # via
+    #   anyio
+    #   httpx
+    #   requests
 importlib-metadata==7.1.0
     # via typeguard
 iniconfig==2.0.0
@@ -68,6 +84,8 @@ pytest-metadata==3.1.1
     # via pytest-html
 python-dateutil==2.9.0.post0
     # via botocore
+python-telegram-bot==21.1
+    # via -r requirements.in
 pyyaml==6.0.1
     # via -r requirements.in
 requests==2.31.0
@@ -78,6 +96,10 @@ s3transfer==0.10.1
     # via boto3
 six==1.16.0
     # via python-dateutil
+sniffio==1.3.1
+    # via
+    #   anyio
+    #   httpx
 tenacity==8.2.3
     # via -r tests.in
 tomli==2.0.1
@@ -86,6 +108,7 @@ typeguard==4.2.1
     # via -r requirements.in
 typing-extensions==4.11.0
     # via
+    #   anyio
     #   marshmallow-dataclass
     #   typeguard
     #   typing-inspect

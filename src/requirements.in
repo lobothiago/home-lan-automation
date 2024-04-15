@@ -4,3 +4,4 @@ marshmallow
 marshmallow-dataclass
 pyyaml
 typeguard
+python-telegram-bot
