@@ -5,3 +5,7 @@ services:
     restart: always
     ports:
       - 8081:8080
+
+  dummy:
+    image: registry.gitlab.com/autolan/lib:${PRJ_VERSION}
+    command: --log_stdout dummy-cli

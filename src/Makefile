@@ -37,6 +37,11 @@ clean:
 	rm -rf build
 	rm -rf *.egg-info
 
+clean-for-build:
+	rm -rf $(DIST_DIR)
+	rm -rf build
+	rm -rf *.egg-info
+
 ## Delete project virtualenv(s)
 clean-virtualenv:
 	rm -rf $(VENVS)
@@ -107,7 +112,7 @@ lint-python-flake8:
 	  && flake8 --ignore=E501,W503,E203,E402,W605 $(PYTHON_SRCS)
 
 ## Build all
-build: pypi pypi-image test-image
+build: clean-for-build pypi pypi-image api-image
 
 ## Build PyPi package
 pypi: inject-version
@@ -130,20 +135,12 @@ api-image:
 	  -t $(PRJ_VERSION) \
 	  -a 'PIP_INDEX_URL=$(PIP_INDEX_URL)' \
 
-## Build test image
-test-image:
-	helpers/build-image.sh \
-	  -f $(NS)/tests/Dockerfile \
-	  -p $(NS)/tests \
-	  -t $(PRJ_VERSION) \
-	  -a 'PIP_INDEX_URL=$(PIP_INDEX_URL)' \
-
-dbmate-image:
-	helpers/build-image.sh \
-	  -f $(NS)/dbmate/Dockerfile \
-	  -p $(NS)/dbmate \
-	  -t $(PRJ_VERSION) \
-	  -a 'PIP_INDEX_URL=$(PIP_INDEX_URL)'
+# dbmate-image:
+# 	helpers/build-image.sh \
+# 	  -f $(NS)/dbmate/Dockerfile \
+# 	  -p $(NS)/dbmate \
+# 	  -t $(PRJ_VERSION) \
+# 	  -a 'PIP_INDEX_URL=$(PIP_INDEX_URL)'
 
 ## Create/update project test virtualenv
 test-virtualenv:
@@ -158,17 +155,9 @@ test-virtualenv:
 test: inject-version
 	. $(TEST_VENV)/bin/activate && $(PYTHON) -m pytest --durations=0 $(PYTHON_TESTS)
 
-## Run notification tests
-test-upsert: inject-version
-	. $(TEST_VENV)/bin/activate && $(PYTHON) -m pytest $(PYTHON_TESTS)/lib/test_upsert_submission.py
-
 ## Show tests, don't run
 show-tests:
 	. $(TEST_VENV)/bin/activate && $(PYTHON) -m pytest --co $(PYTHON_TESTS)
-
-## Load images into local docker
-docker-load:
-	docker pull registry.gitlab.com/$(NS)/lib:$(PRJ_VERSION)
 
 ## Start/reload local development stack
 up:
@@ -184,30 +173,37 @@ up-api:
 			"autolan.api.main:application()"
 
 ## Start submission worker
-up-retention:
+up-dummy:
 	. $(MAIN_VENV)/bin/activate \
-      && docsplit-snr retention-policy 1300
+      && autolan --log_stdout dummy-cli
+
+
+docker-up-dummy:
+	env PRJ_VERSION='$(PRJ_VERSION)' $(DOCKER_COMPOSE) build
+	env PRJ_VERSION='$(PRJ_VERSION)' $(DOCKER_COMPOSE) up dummy
 
 ## Stop local development stack
 down:
 	env PRJ_VERSION='$(PRJ_VERSION)' $(DOCKER_COMPOSE) down
 
-publish-local-latest:
-	helpers/build-image.sh \
-	  -f $(NS)/api/Dockerfile \
-	  -t latest \
-	  -p $(NS)/api \
-	  -a 'PIP_INDEX_URL=$(PIP_INDEX_URL)'
-	helpers/build-image.sh \
-	  -f $(NS)/dbmate/Dockerfile \
-	  -t latest \
-	  -p $(NS)/dbmate \
-	  -a 'PIP_INDEX_URL=$(PIP_INDEX_URL)'
-	helpers/build-image.sh \
-	  -f $(NS)/lib/Dockerfile \
-	  -t latest \
-	  -p $(NS)/lib \
-	  -a 'PIP_INDEX_URL=$(PIP_INDEX_URL)'
+publish-local-latest: api-image pypi-image
+
+# publish-local-latest:
+# 	helpers/build-image.sh \
+# 	  -f $(NS)/api/Dockerfile \
+# 	  -t latest \
+# 	  -p $(NS)/api \
+# 	  -a 'PIP_INDEX_URL=$(PIP_INDEX_URL)'
+# 	helpers/build-image.sh \
+# 	  -f $(NS)/dbmate/Dockerfile \
+# 	  -t latest \
+# 	  -p $(NS)/dbmate \
+# 	  -a 'PIP_INDEX_URL=$(PIP_INDEX_URL)'
+# 	helpers/build-image.sh \
+# 	  -f $(NS)/lib/Dockerfile \
+# 	  -t latest \
+# 	  -p $(NS)/lib \
+# 	  -a 'PIP_INDEX_URL=$(PIP_INDEX_URL)'
 
 ## Formats project code 
 format: format-python
