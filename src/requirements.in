@@ -5,3 +5,4 @@ marshmallow-dataclass
 pyyaml
 typeguard
 python-telegram-bot
+async-to-sync

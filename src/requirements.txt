@@ -6,6 +6,8 @@
 #
 anyio==4.3.0
     # via httpx
+async-to-sync==0.2.3
+    # via -r requirements.in
 certifi==2024.2.2
     # via
     #   httpcore
