@@ -1,0 +1,21 @@
+- CLI tool to send simple Telegram messages
+
+- CLI tool to start interactive Telegram bot worker
+    - Server wake-up: WOL + GRUB option
+    - Remote shutdown
+        - Windows -> use karpach/remote-shutdown-pc server (Hibernate)
+        - Linux -> TBD
+
+- API 
+    - Listen to callbacks after machines come up
+
+Future: on-demand VPN cert management
+
+
+
+
+
+
+
+
+docker run -it --rm -e SETTINGS_FILE_PATH=/settings.yml -v ${SETTINGS_FILE_PATH}:/settings.yml:ro registry.gitlab.com/autolan/lib:0.0.1 --log_stdout telegram-bot
