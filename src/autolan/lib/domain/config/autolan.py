@@ -1,5 +1,5 @@
 from dataclasses import field
-from typing import Any, Dict, List, Optional, cast
+from typing import Any, Dict, List, Optional, Union, cast
 
 from marshmallow_dataclass import class_schema, dataclass
 
@@ -21,6 +21,7 @@ class SlaveConfig(BaseConfig):
 class TelegramConfig(BaseConfig):
 
     api_key: str
+    default_alert_user_id: Union[Optional[int], Optional[str]]
 
 
 @dataclass

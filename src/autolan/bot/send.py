@@ -1,4 +1,5 @@
 import logging
+from typing import Union
 
 import async_to_sync as sync
 from telegram.ext import Application
@@ -21,7 +22,7 @@ class TelegramMessageSender:
             Application.builder().token(self._config_service.telegram.api_key).build()
         )
 
-    def send(self, user_id: str, message: str) -> None:
+    def send(self, user_id: Union[str, int], message: str) -> None:
         async def _send():
             await self._application.bot.send_message(user_id, message)
 
