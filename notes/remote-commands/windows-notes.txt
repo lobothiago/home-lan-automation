@@ -1,0 +1,10 @@
+dedicated ssh user to wsl
+(need to add user to sshd config after creating it!)
+
+homelanelf
+
+check when ssh is available (use a remote command like date or uname)
+
+remote hibernation:
+
+/mnt/c/Windows/System32/shutdown.exe /h
