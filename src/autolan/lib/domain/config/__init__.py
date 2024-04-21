@@ -1,3 +1,3 @@
-from autolan.lib.domain.config.autolan import AutoLANConfig, Schema
+from autolan.lib.domain.config.autolan import AutoLANConfig
 
-__all__ = ["AutoLANConfig", "Schema"]
+__all__ = ["AutoLANConfig"]

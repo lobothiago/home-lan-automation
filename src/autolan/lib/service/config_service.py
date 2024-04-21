@@ -2,7 +2,7 @@ from typing import Any, Dict, List, Optional
 
 import yaml
 
-from autolan.lib.domain.config import AutoLANConfig, Schema
+from autolan.lib.domain.config import AutoLANConfig
 
 
 class ConfigService(AutoLANConfig):
@@ -17,7 +17,7 @@ class ConfigService(AutoLANConfig):
             self.load_from_path(settings_file_path)
 
     def _deserialize_config_dict(self):
-        settings = Schema.load(self._config_dict)
+        settings = AutoLANConfig.from_dict(self._config_dict)
         return settings
 
     def _set_config_dict(self, config_dict: Dict[str, Any]):
