@@ -8,7 +8,7 @@ def is_mac_address(mac: str) -> bool:
     return bool(re.match(pattern, mac))
 
 
-def send_wake_on_lan(mac_address):
+def send_wake_on_lan(mac_address : str) -> None:
     # Check the MAC address format and convert it to a binary representation
     if len(mac_address) == 12:
         pass
@@ -16,7 +16,10 @@ def send_wake_on_lan(mac_address):
         separators = mac_address[2]
         mac_address = mac_address.replace(separators, "")
     else:
-        raise ValueError("Incorrect MAC address format")
+        raise ValueError(f"Incorrect MAC address format: `{mac_address}`")
+
+    if not is_mac_address(mac_address):
+        raise ValueError(f"Incorrect MAC address format: `{mac_address}`")
 
     # Create the magic packet. It's 6 bytes of FF followed by the MAC repeated 16 times.
     data = b"FF" * 6 + (mac_address * 16).encode()
